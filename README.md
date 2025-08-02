@@ -1,63 +1,106 @@
-# Marzban-scripts
-Scripts for Marzban
 
-## Installing Marzban
-- **Install Marzban with SQLite**:
+# 📦 amin-backup
+
+ابزاری حرفه‌ای برای بکاپ‌گیری از Marzban و ارسال خودکار به تلگرام — توسعه داده شده توسط **محمدامین (aminborna)**
+
+---
+
+## 🚀 ویژگی‌ها
+
+- بکاپ‌گیری کامل از پنل Marzban
+- پشتیبانی از MariaDB، MySQL و SQLite
+- ارسال خودکار بکاپ‌ها به تلگرام
+- کرون‌جاب اتوماتیک (نصب آسان زمان‌بندی‌شده)
+- پیام کاملاً شخصی‌سازی‌شده در تلگرام
+- نصب آسان تنها با یک خط کد
+
+---
+
+## ⚙️ نصب سریع
 
 ```bash
-sudo bash -c "$(curl -sL https://github.com/Gozargah/Marzban-scripts/raw/master/marzban.sh)" @ install
+bash <(curl -sL https://raw.githubusercontent.com/aminborna/amin-backup/main/marzban.sh)
 ```
 
-- **Install Marzban with MySQL**:
+---
 
-  ```bash
-  sudo bash -c "$(curl -sL https://github.com/Gozargah/Marzban-scripts/raw/master/marzban.sh)" @ install --database mysql
-  ```
+## 🧩 پیش‌نیازها
 
-- **Install Marzban with MariaDB**:
+- فعال بودن `curl` و `bash`
+- داشتن ربات تلگرام و گرفتن:
+  - `TELEGRAM_BOT_TOKEN`
+  - `TELEGRAM_CHAT_ID`
 
-  ```bash
-  sudo bash -c "$(curl -sL https://github.com/Gozargah/Marzban-scripts/raw/master/marzban.sh)" @ install --database mariadb
-  ```
-  
-- **Install Marzban with MariaDB and Dev branch**:
+---
 
-  ```bash
-  sudo bash -c "$(curl -sL https://github.com/Gozargah/Marzban-scripts/raw/master/marzban.sh)" @ install --database mariadb --dev
-  ```
+## 🔧 تنظیمات فایل `config.json`
 
-- **Install Marzban with MariaDB and Manual version**:
+در مسیر `/opt/amin-backup/config.json`:
 
-  ```bash
-  sudo bash -c "$(curl -sL https://github.com/Gozargah/Marzban-scripts/raw/master/marzban.sh)" @ install --database mariadb --version v0.5.2
-  ```
+```json
+{
+  "telegram_bot_token": "توکن_ربات_شما",
+  "telegram_chat_id": "آیدی_عدد_یا_کانال",
+  "databases": [
+    {
+      "type": "mariadb",
+      "env_path": "/opt/marzban/.env",
+      "docker_path": "/opt/marzban/docker-compose.yml",
+      "container_name": "mariadb",
+      "url_format": "sqlalchemy",
+      "external": ["/var/lib/marzban/certs"]
+    },
+    {
+      "type": "sqlite",
+      "db_name": "test",
+      "env_path": "/opt/marzban/.env",
+      "docker_path": "/opt/marzban/docker-compose.yml",
+      "external": ["/var/lib/marzban/templates"]
+    }
+  ]
+}
+```
 
-- **Update or Change Xray-core Version**:
+---
 
-  ```bash
-  sudo marzban core-update
-  ```
+## 📥 پیام دریافتی در تلگرام
 
+```
+📦 بکاپ با موفقیت انجام شد  
+👨‍💻 ارسال‌شده توسط: محمدامین (aminborna)  
+✅ مخصوص پنل Marzban  
+🛡 پشتیبان‌گیری اختصاصی توسط اسکریپت شخصی‌سازی‌شده  
+📁 GitHub: https://github.com/aminborna/marzban-backup
+```
 
-## Installing Marzban-node
-Install Marzban-node on your server using this command
+---
+
+## ⏰ افزودن به کرون‌جاب
+
+برای اجرای خودکار هر ۱ ساعت:
+
 ```bash
-sudo bash -c "$(curl -sL https://github.com/Gozargah/Marzban-scripts/raw/master/marzban-node.sh)" @ install
-```
-Install Marzban-node on your server using this command with custom name:
-```bash
-sudo bash -c "$(curl -sL https://github.com/Gozargah/Marzban-scripts/raw/master/marzban-node.sh)" @ install --name marzban-node2
-```
-Or you can only install this script (marzban-node command) on your server by using this command
-```bash
-sudo bash -c "$(curl -sL https://github.com/Gozargah/Marzban-scripts/raw/master/marzban-node.sh)" @ install-script
+(crontab -l 2>/dev/null; echo "0 * * * * bash /opt/amin-backup/marzban.sh") | crontab -
 ```
 
-Use `help` to view all commands:
-```marzban-node help```
+---
 
-- **Update or Change Xray-core Version**:
+## 📚 منابع
 
-  ```bash
-  sudo marzban-node core-update
-  ```
+- [Marzban Documentation (Gozargah)](https://github.com/Gozargah/Marzban)
+- [Telegram Bot API](https://core.telegram.org/bots/api)
+
+---
+
+## 🛡 مجوز
+
+MIT License — استفاده آزاد با حفظ نام نویسنده (aminborna)
+
+---
+
+## 🙋‍♂️ پشتیبانی
+
+در صورت نیاز به پشتیبانی یا همکاری:
+- GitHub: [aminborna](https://github.com/aminborna)
+- Telegram: [@aminborna](https://t.me/aminborna)
+
